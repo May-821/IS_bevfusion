@@ -71,8 +71,19 @@ The code is built with following libraries:
 - [tqdm](https://github.com/tqdm/tqdm)
 - [torchpack](https://github.com/mit-han-lab/torchpack)
 - [mmcv](https://github.com/open-mmlab/mmcv) = 1.4.0
+  ```bash
+  pip install mmcv-full==1.4.0
+  ```
 - [mmdetection](http://github.com/open-mmlab/mmdetection) = 2.20.0
+  ```bash
+  pip install mmdet==2.20.0
+  ```
 - [nuscenes-dev-kit](https://github.com/nutonomy/nuscenes-devkit)
+
+if encounters these problem:
+- `TypeError: FormatCode() got an unexpected keyword argument 'verify'`:
+  Solution: pip install yapf==0.40.1
+- 
 
 After installing these dependencies, please run this command to install the codebase:
 
