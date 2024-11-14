@@ -41,13 +41,14 @@ The code is built with following libraries:
   make install
   ```
   - environment variable settings:
+  
   add these two lines to ~/.bashrc
   ```bash
   export PATH=/opt/openmpi/bin:$PATH
   export LD_LIBRARY_PATH=/opt/openmpi/lib:$LD_LIBRARY_PATH
   ```
 
-  Then you can start install mpi4py:
+  Then you can start to install mpi4py:
   ```bash
   pip install mpi4py==3.0.3
   ```
@@ -79,7 +80,10 @@ After installing these dependencies, please run this command to install the code
 ```bash
 python setup.py develop
 ```
-
+Then, run this command to install the the remaining packages:
+```bash
+pip install -r requirements.txt
+```
 
 ### Data Preparation
 
@@ -87,7 +91,7 @@ python setup.py develop
 
 You can run this command to download the full NuScenes dataset:
 ```bash
-bash ./data/nuscenes/dataset.sh
+bash ./data/dataset.sh
 ```
 
 Then run this command to preprocess:
