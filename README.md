@@ -81,7 +81,7 @@ torchpack dist-run -np [number of gpus] python tools/test.py [config file path] 
 For example, if you want to evaluate the detection variant of BEVFusion, you can try:
 
 ```bash
-torchpack dist-run -np 8 python tools/test.py configs/nuscenes/det/transfusion/secfpn/camera+lidar/swint_v0p075/convfuser.yaml pretrained/bevfusion-det.pth --eval bbox
+torchpack dist-run -np 2 python tools/test.py configs/nuscenes/det/transfusion/secfpn/camera+lidar/swint_v0p075/convfuser.yaml pretrained/bevfusion-det.pth --eval bbox
 ```
 
 ### Training
@@ -91,7 +91,7 @@ We provide instructions to reproduce our results on nuScenes.
 For example, if you want to train the camera-only variant for object detection, please run:
 
 ```bash
-torchpack dist-run -np 8 python tools/train.py configs/nuscenes/det/centerhead/lssfpn/camera/256x704/swint/default.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth
+torchpack dist-run -np 2 python tools/train.py configs/nuscenes/det/centerhead/lssfpn/camera/256x704/swint/default.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth
 ```
 
 Note: please run `tools/test.py` separately after training to get the final evaluation metrics.
