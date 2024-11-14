@@ -31,27 +31,6 @@ After installing these dependencies, please run this command to install the code
 python setup.py develop
 ```
 
-We also provide a [Dockerfile](docker/Dockerfile) to ease environment setup. To get started with docker, please make sure that `nvidia-docker` is installed on your machine. After that, please execute the following command to build the docker image:
-
-```bash
-cd docker && docker build . -t bevfusion
-```
-
-We can then run the docker with the following command:
-
-```bash
-nvidia-docker run -it -v `pwd`/../data:/dataset --shm-size 16g bevfusion /bin/bash
-```
-
-We recommend the users to run data preparation (instructions are available in the next section) outside the docker if possible. Note that the dataset directory should be an absolute path. Within the docker, please run the following command to clone our repo and install custom CUDA extensions:
-
-```bash
-cd home && git clone https://github.com/mit-han-lab/bevfusion && cd bevfusion
-python setup.py develop
-```
-
-You can then create a symbolic link `data` to the `/dataset` directory in the docker.
-
 ### Data Preparation
 
 #### nuScenes
@@ -105,12 +84,6 @@ For example, if you want to evaluate the detection variant of BEVFusion, you can
 torchpack dist-run -np 8 python tools/test.py configs/nuscenes/det/transfusion/secfpn/camera+lidar/swint_v0p075/convfuser.yaml pretrained/bevfusion-det.pth --eval bbox
 ```
 
-While for the segmentation variant of BEVFusion, this command will be helpful:
-
-```bash
-torchpack dist-run -np 8 python tools/test.py configs/nuscenes/seg/fusion-bev256d2-lss.yaml pretrained/bevfusion-seg.pth --eval map
-```
-
 ### Training
 
 We provide instructions to reproduce our results on nuScenes.
@@ -119,34 +92,6 @@ For example, if you want to train the camera-only variant for object detection, 
 
 ```bash
 torchpack dist-run -np 8 python tools/train.py configs/nuscenes/det/centerhead/lssfpn/camera/256x704/swint/default.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth
-```
-
-For camera-only BEV segmentation model, please run:
-
-```bash
-torchpack dist-run -np 8 python tools/train.py configs/nuscenes/seg/camera-bev256d2.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth
-```
-
-For LiDAR-only detector, please run:
-
-```bash
-torchpack dist-run -np 8 python tools/train.py configs/nuscenes/det/transfusion/secfpn/lidar/voxelnet_0p075.yaml
-```
-
-For LiDAR-only BEV segmentation model, please run:
-
-```bash
-torchpack dist-run -np 8 python tools/train.py configs/nuscenes/seg/lidar-centerpoint-bev128.yaml
-```
-
-For BEVFusion detection model, please run:
-```bash
-torchpack dist-run -np 8 python tools/train.py configs/nuscenes/det/transfusion/secfpn/camera+lidar/swint_v0p075/convfuser.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth --load_from pretrained/lidar-only-det.pth 
-```
-
-For BEVFusion segmentation model, please run:
-```bash
-torchpack dist-run -np 8 python tools/train.py configs/nuscenes/seg/fusion-bev256d2-lss.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth
 ```
 
 Note: please run `tools/test.py` separately after training to get the final evaluation metrics.
