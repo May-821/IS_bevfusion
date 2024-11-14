@@ -96,7 +96,7 @@ bash ./data/dataset.sh
 
 Then run this command to preprocess:
 ```bash
-python ./tools/create_data.py
+python ./tools/create_data.py nuscenes --root-path ./data/nuscenes --out-dir ./data/nuscenes --extra-tag nuscenes
 ```
 
 After data preparation, you will be able to see the following directory structure:
@@ -118,34 +118,41 @@ IS_bevfusion
 
 ```
 
-### Evaluation
+### Training
 
-We also provide instructions for evaluating our pretrained models. Please download the checkpoints using the following script: 
+Please download the checkpoints using the following script: 
 
 ```bash
 ./tools/download_pretrained.sh
 ```
+We provide instructions to reproduce our results on nuScenes.
+you will be able to run:
+
+```bash
+torchpack dist-run -np [number of gpus] python tools/train.py [config file path] --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/[checkpoint name].pth
+```
+
+For example, if you want to train the camera-only variant for object detection after modified, please run:
+
+```bash
+torchpack dist-run -np 2 python tools/train.py configs/nuscenes/det/centerhead/lssfpn/camera/256x704/swint/default_V2.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth
+```
+
+Note: please run `tools/test.py` separately after training to get the final evaluation metrics.
+
+### Evaluation
+
+We also provide instructions for evaluating our pretrained models. 
 
 Then, you will be able to run:
 
 ```bash
-torchpack dist-run -np [number of gpus] python tools/test.py [config file path] pretrained/[checkpoint name].pth --eval [evaluation type]
+torchpack dist-run -np [number of gpus] python tools/test.py [config file path] [checkpoint path] --eval [evaluation type]
 ```
 
-For example, if you want to evaluate the detection variant of BEVFusion, you can try:
+For example, if you want to evaluate the camera-only variant for object detection after modified, you can try:
 
 ```bash
-torchpack dist-run -np 2 python tools/test.py configs/nuscenes/det/transfusion/secfpn/camera+lidar/swint_v0p075/convfuser.yaml pretrained/bevfusion-det.pth --eval bbox
+torchpack dist-run -np 2 python tools/test.py configs/nuscenes/det/centerhead/lssfpn/camera/256x704/swint/default_V2.yaml [checkpoint path] --eval bbox
 ```
 
-### Training
-
-We provide instructions to reproduce our results on nuScenes.
-
-For example, if you want to train the camera-only variant for object detection, please run:
-
-```bash
-torchpack dist-run -np 2 python tools/train.py configs/nuscenes/det/centerhead/lssfpn/camera/256x704/swint/default.yaml --model.encoders.camera.backbone.init_cfg.checkpoint pretrained/swint-nuimages-pretrained.pth
-```
-
-Note: please run `tools/test.py` separately after training to get the final evaluation metrics.
