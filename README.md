@@ -10,7 +10,7 @@ The code is built with following libraries:
   ```bash
   conda create -n {env_name} python=3.8 -y
   ```
-- [PyTorch](https://github.com/pytorch/pytorch) >= 1.9, \<= 1.10.2
+- [PyTorch](https://github.com/pytorch/pytorch) >= 1.9, \<= 1.10.2 (I used **1.10.1**)
   ```bash
   pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu113/torch_stable.html
   ```
