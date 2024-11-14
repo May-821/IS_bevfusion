@@ -32,9 +32,6 @@ Markdown==3.7
 MarkupSafe==2.1.5
 matplotlib==3.5.3
 matplotlib-inline==0.1.7
-mmcv-full==1.4.0
-mmdet==2.20.0
-mpi4py==3.0.3
 msgpack==1.1.0
 msgpack-numpy==0.4.8
 multimethod==1.10
@@ -82,11 +79,7 @@ terminaltables==3.1.10
 threadpoolctl==3.5.0
 toml==0.10.2
 tomli==2.0.2
-torch==1.10.1+cu113
-torchaudio==0.10.1+cu113
 torchex==0.1.0
-torchpack==0.3.1
-torchvision==0.11.2+cu113
 tqdm==4.66.6
 traitlets==5.14.3
 typing_extensions==4.12.2

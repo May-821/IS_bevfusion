@@ -21,6 +21,8 @@ from mmdet.apis import multi_gpu_test, set_random_seed
 from mmdet.datasets import replace_ImageToTensor
 from mmdet3d.utils import recursive_eval
 
+import time
+import os.path as osp
 
 def parse_args():
     parser = argparse.ArgumentParser(description="MMDet test (and eval) a model")
@@ -208,10 +210,13 @@ def main():
     if rank == 0:
         if args.out:
             print(f"\nwriting results to {args.out}")
-            mmcv.dump(outputs, args.out)
+            # mmcv.dump(outputs, args.out)
         kwargs = {} if args.eval_options is None else args.eval_options
+        kwargs['jsonfile_prefix'] = osp.join('test', args.config.split(
+            '/')[-1].split('.')[-2], time.ctime().replace(' ', '_').replace(':', '_'))
         if args.format_only:
             dataset.format_results(outputs, **kwargs)
+            
         if args.eval:
             eval_kwargs = cfg.get("evaluation", {}).copy()
             # hard-code way to remove EvalHook args
