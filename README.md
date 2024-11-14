@@ -56,13 +56,20 @@ You can then create a symbolic link `data` to the `/dataset` directory in the do
 
 #### nuScenes
 
-Please follow the instructions from [here](https://github.com/open-mmlab/mmdetection3d/blob/master/docs/en/datasets/nuscenes_det.md) to download and preprocess the nuScenes dataset. Please remember to download both detection dataset and the map extension (for BEV map segmentation). After data preparation, you will be able to see the following directory structure (as is indicated in mmdetection3d):
+You can run this command to download the full NuScenes dataset:
+```bash
+bash ./data/nuscenes/dataset.sh
+```
+
+Then run this command to preprocess:
+```bash
+python ./tools/create_data.py
+```
+
+After data preparation, you will be able to see the following directory structure:
 
 ```
-mmdetection3d
-├── mmdet3d
-├── tools
-├── configs
+IS_bevfusion
 ├── data
 │   ├── nuscenes
 │   │   ├── maps
@@ -70,7 +77,7 @@ mmdetection3d
 │   │   ├── sweeps
 │   │   ├── v1.0-test
 |   |   ├── v1.0-trainval
-│   │   ├── nuscenes_database
+│   │   ├── nuscenes_gt_database
 │   │   ├── nuscenes_infos_train.pkl
 │   │   ├── nuscenes_infos_val.pkl
 │   │   ├── nuscenes_infos_test.pkl
