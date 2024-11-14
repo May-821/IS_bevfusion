@@ -85,6 +85,11 @@ Then, run this command to install the the remaining packages:
 pip install -r requirements.txt
 ```
 
+You can uninstall mmdetection3d to avoid conflicts with the IS_bevfusion/mmdet3d directory:
+```bash
+pip uninstall mmdet3d
+```
+
 ### Data Preparation
 
 #### nuScenes
