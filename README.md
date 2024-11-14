@@ -4,12 +4,54 @@
 
 The code is built with following libraries:
 
-- Python >= 3.8, \<3.9
-- OpenMPI = 4.0.4 and mpi4py = 3.0.3 (Needed for torchpack)
-- Pillow = 8.4.0 (see [here](https://github.com/mit-han-lab/bevfusion/issues/63))
+- CUDA = **11.3**
+- gcc version = 9.4 (versions that are too new may cause compatibility issues.)
+- Python >= **3.8**, \<3.9
+  ```bash
+  conda create -n {env_name} python=3.8 -y
+  ```
 - [PyTorch](https://github.com/pytorch/pytorch) >= 1.9, \<= 1.10.2
-- [tqdm](https://github.com/tqdm/tqdm)
+  ```bash
+  pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+  ```
 - [torchpack](https://github.com/mit-han-lab/torchpack)
+  ```bash
+  pip install torchpack==0.3.1
+  ```
+- OpenMPI = 4.0.4 and mpi4py = 3.0.3 (Needed for torchpack)
+  - download OpenMPI source code:
+  ```bash
+  wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.4.tar.gz
+  tar xf ./openmpi-4.0.4.tar.gz
+  ```
+  - set compilation parameters:
+  ```bash
+  cd openmpi-4.0.4
+  ./configure --prefix=<path>
+  ```
+  ```--prefix``` is used to specify the installation path for OpenMPI, where the compiled files will be placed after completion.
+  - compile:
+  ```bash
+  make
+  # or
+  make -j4 # indicates compiling with four threads.
+  ```
+  - installation:
+  ```bash
+  make install
+  ```
+  - environment variable settings:
+  add these two lines to ~/.bashrc
+  ```bash
+  export PATH=/opt/openmpi/bin:$PATH
+  export LD_LIBRARY_PATH=/opt/openmpi/lib:$LD_LIBRARY_PATH
+  ```
+
+  Then you can start install mpi4py:
+  ```bash
+  pip install mpi4py==3.0.3
+  ```
+  
 - [mmcv](https://github.com/open-mmlab/mmcv) = 1.4.0
   ```bash
   pip install mmcv-full==1.4.0
@@ -18,18 +60,26 @@ The code is built with following libraries:
   ```bash
   pip install mmdet==2.20.0
   ```
-- [nuscenes-dev-kit](https://github.com/nutonomy/nuscenes-devkit)
-
-if encounters these problem:
-- `TypeError: FormatCode() got an unexpected keyword argument 'verify'`:
-  Solution: pip install yapf==0.40.1
-- 
-
+- TorchEx
+  ```bash
+  cd ./mmdet3d/ops/TorchEx
+  pip install -v .
+  ```
+<!-- - Pillow = **8.4.0** (see [here](https://github.com/mit-han-lab/bevfusion/issues/63))
+  ```bash
+  pip install pillow==8.4.0
+  ``` -->
+<!-- - [tqdm](https://github.com/tqdm/tqdm) -->
+<!-- - [nuscenes-dev-kit](https://github.com/nutonomy/nuscenes-devkit)
+  ```bash
+  pip install nuscenes-devkit
+  ``` -->
 After installing these dependencies, please run this command to install the codebase:
 
 ```bash
 python setup.py develop
 ```
+
 
 ### Data Preparation
 

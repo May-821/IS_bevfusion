@@ -79,7 +79,6 @@ terminaltables==3.1.10
 threadpoolctl==3.5.0
 toml==0.10.2
 tomli==2.0.2
-torchex==0.1.0
 tqdm==4.66.6
 traitlets==5.14.3
 typing_extensions==4.12.2

@@ -1,3 +1,5 @@
+mkdir -p ./nuscenes
+
 # nuscenes trainval-set
 wget -c -O v1.0-trainval_meta.tgz "https://d36yt3mvayqw5m.cloudfront.net/public/v1.0/v1.0-trainval_meta.tgz"
 tar -zvxf v1.0-trainval_meta.tgz -C ./nuscenes
@@ -58,7 +60,7 @@ wget -c -O v1.0-test_meta.tgz "https://d36yt3mvayqw5m.cloudfront.net/public/v1.0
 tar -zvxf v1.0-test_meta.tgz -C ./nuscenes
 rm v1.0-test_meta.tgz
 
-wget -c -O v1.0-test_blobs_lidar.tgz "https://motional-nuscenes.s3.amazonaws.com/public/v1.0/v1.0-test_blobs_lidar.tgz"
-tar -zvxf v1.0-test_blobs_lidar.tgz -C ./nuscenes
-rm v1.0-test_blobs_lidar.tgz
-rm v1.0-trainval01_blobs.txt
+wget -c -O v1.0-test_blobs.tgz "https://motional-nuscenes.s3.amazonaws.com/public/v1.0/v1.0-test_blobs.tgz"
+tar -zvxf v1.0-test_blobs.tgz -C ./nuscenes
+rm v1.0-test_blobs.tgz
+rm v1.0-test_blobs.txt
